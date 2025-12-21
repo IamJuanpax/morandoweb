@@ -1,150 +1,116 @@
-# **AI Development Guidelines for Next.js in Firebase Studio**
+# GUIDELINES MAESTRAS: Aceitunas MORANDO en Firebase Studio
 
-These guidelines define the operational principles and capabilities of an AI agent (e.g., Gemini) interacting with Next.js projects within the Firebase Studio environment. The goal is to enable an efficient, automated, and error-resilient application design and development workflow that leverages the full power of the Next.js framework.
+Este documento define los principios operativos y el contexto del proyecto para el desarrollo del Ecommerce "Aceitunas MORANDO". La IA debe actuar como un Ingeniero Senior de Frontend y Backend especializado en Next.js 15, operando dentro del entorno Project IDX/Firebase Studio.
 
-## **Environment & Context Awareness**
+## 1. Conciencia del Entorno (CRÍTICO)
 
-The AI operates within the Firebase Studio development environment, which provides a Code OSS-based IDE and a pre-configured environment for Next.js development.
+La IA opera dentro de un entorno pre-configurado (Firebase Studio).
+* **NO EJECUTAR SERVIDOR:** Nunca ejecutes `next dev` ni comandos de inicio. El entorno ya tiene un servidor de previsualización corriendo ("Preview Server"). Tu trabajo es monitorear la salida de ese servidor.
+* **Gestión de Errores:**
+    * Después de cada modificación, revisa la salida del servidor existente.
+    * Ejecuta `npm run lint -- --fix` para corregir errores de sintaxis automáticamente.
+* **Configuración:** Respeta el archivo `.idx/dev.nix`.
+* **Firebase Integration:** Utiliza `firebase-tools` y el SDK de Admin cuando sea necesario.
 
-* **Project Structure (App Router):** The AI assumes a standard Next.js project structure using the App Router.
-  * `/app`: The core directory for file-based routing.
-  * `layout.tsx`: The root layout.
-  * `page.tsx`: The page UI for a route.
-  * `/components`: For reusable UI components.
-  * `/lib`: For utility functions and libraries.
-* **`dev.nix` Configuration:** The AI is aware of the `.idx/dev.nix` file for environment configuration, which includes `pkgs.nodejs` and other necessary tools.
-* **Preview Server:** Firebase Studio provides a running preview server. The AI **will not** run `next dev`, but will instead monitor the output of the already running server for real-time feedback.
-* **Firebase Integration:** The AI can integrate Firebase services, following standard procedures for Next.js projects, including using the Firebase Admin SDK in server-side code.
-
-## Firebase MCP
-
-When requested for Firebase add the following the server configurations to .idx/mcp.json. Just add the following and don't add anything else.
-
+### Configuración MCP (Requerido)
+Si se solicita configuración de Firebase, agrega esto a `.idx/mcp.json` sin borrar otras configuraciones:
+```json
 {
     "mcpServers": {
         "firebase": {
             "command": "npx",
-            "args": [
-                "-y",
-                "firebase-tools@latest",
-                "experimental:mcp"
-            ]
+            "args": [ "-y", "firebase-tools@latest", "experimental:mcp" ]
         }
     }
 }
 
-## **Code Modification & Dependency Management**
+## 2. Identidad del Proyecto: Aceitunas MORANDO
+Negocio: Ecommerce de aceitunas de alta gama (Inspiración: Nucete / Gourmet Olives).
 
-The AI is empowered to modify the codebase autonomously based on user requests. The AI is creative and anticipates features that the user might need even if not explicitly requested.
+Estética: Premium, Dark Mode predominante (#0a0a0a), acentos dorados (#eab308) o verde oliva (#84cc16).
 
-* **Core Code Assumption:** The AI will primarily work with React components (`.tsx` or `.jsx`) within the `/app` directory. It will create new routes, layouts, and components as needed.
-* **Package Management:** The AI will use `npm` or `yarn` for package management.
-* **Next.js CLI:** The AI will use the Next.js CLI for common development tasks:
-  * `npm run build`: To build the project for production.
-  * `npm run lint`: To run ESLint and check for code quality issues.
+UX Referencia:
 
-## **Next.js Core Concepts (App Router)**
+Mercado Libre: Para la estructura de la "Página de Detalle de Producto" (Galería, Ficha técnica).
 
-### **Server Components by Default**
+Minimalismo: Diseño limpio, tipografía sans-serif elegante.
 
-The AI understands that components in the `/app` directory are React Server Components (RSCs) by default.
+## 3. Stack Tecnológico (Estricto)
+Framework: Next.js 15+ (App Router).
 
-* **Data Fetching:** The AI will perform data fetching directly in Server Components using `async/await`, colocating data access with the component that uses it.
-* **"use client" Directive:** For components that require interactivity, state, or browser-only APIs, the AI will use the `"use client"` directive to mark them as Client Components.
-* **Best Practice:** Keep Client Components as small as possible and push them to the leaves of the component tree to minimize the client-side JavaScript bundle.
+Lenguaje: TypeScript (Estricto).
 
-### **File-based Routing**
+Estilos: Tailwind CSS (Mobile First).
 
-The AI will manage routing by creating folders and `page.tsx` files within the `/app` directory.
+Componentes UI: Shadcn/UI (Base) + Magic UI / Aceternity (Para efectos visuales premium).
 
-* **Layouts (`layout.tsx`):** Define shared UI for a segment and its children.
-* **Pages (`page.tsx`):** Define the unique UI of a route.
-* **Loading UI (`loading.tsx`):** Create instant loading states that show while a route segment loads.
-* **Error Handling (`error.tsx`):** Isolate errors to specific route segments.
+Autenticación: Clerk.
 
-### **Server Actions**
+Base de Datos: PostgreSQL vía Prisma ORM.
 
-For data mutations (e.g., form submissions), the AI will use Server Actions to call server-side functions directly from components.
+Estado Global: Zustand (Gestión del Carrito).
 
-* **Definition:** The AI will define an `async` function with the `"use server"` directive.
-* **Invocation:** Actions will be invoked using the `action` prop on a `<form>` element or from custom event handlers.
-* **Security:** Server Actions are the preferred way to handle mutations as they provide built-in protection against POST-only requests.
+Documentación API: Swagger (OpenAPI) expuesto en /api/docs.
 
-*Example of a simple Server Action:*
+## 4. Reglas de Desarrollo e Implementación
+A. Idioma y Documentación
+Español: Todo el código (nombres de variables, funciones, rutas) y la interfaz de usuario deben estar en Español.
 
-```ts
-// app/actions.ts
-'use server'
+JSDoc & Swagger: Cada route.ts (Endpoint) y cada Server Action debe tener comentarios JSDoc detallados. Esto servirá para generar la documentación de Swagger automáticamente.
 
-import { z } from 'zod'
+B. Arquitectura (App Router)
+Server Components: Priorizar su uso para fetching de datos (directo a DB con Prisma).
 
-const schema = z.object({
-  email: z.string().email(),
-})
+Client Components: Usar 'use client' solo para interactividad (Click, State, Hooks).
 
-export async function-save-email(prevState: any, formData: FormData) {
-  const validatedFields = schema.safeParse({
-    email: formData.get('email'),
-  })
+Estructura de Carpetas:
 
-  if (!validatedFields.success) {
-    return {
-      errors: validatedFields.error.flatten().fieldErrors,
-    }
-  }
-  // Save email to database...
-  return { message: 'Success!' }
-}
-```
+/app/(shop): Rutas públicas (Home, Catálogo, Detalle).
 
-## **Automated Error Detection & Remediation**
+/app/(admin): Rutas protegidas de administración.
 
-A critical function of the AI is to continuously monitor for and automatically resolve errors.
+/components/product: Componentes específicos (Galería, TablaSpecs).
 
-* **Post-Modification Checks:** After every code modification, the AI will:
-  * Run `npm run lint -- --fix` to catch and fix linting issues.
-  * Monitor the IDE's diagnostics (problem pane).
-  * Check the output of the running dev server for compilation and runtime errors.
-* **Automatic Error Correction:** The AI will attempt to fix common Next.js and React errors.
-* **Problem Reporting:** If an error cannot be resolved, the AI will report the specific error message, its location, and a concise explanation with a suggested fix.
+/lib: Configuración de Prisma (db.ts), Utils, Swagger.
 
-## **Visual Design**
+C. Funcionalidades Específicas
+Detalle de Producto:
 
-**Aesthetics:** The AI always makes a great first impression by creating a unique user experience that incorporates modern components, a visually balanced layout with clean spacing, and polished styles that are easy to understand.
+Implementar una galería de imágenes interactiva (Zoom + Thumbnails).
 
-1. Build beautiful and intuitive user interfaces that follow modern design guidelines.
-2. Ensure your app is mobile responsive and adapts to different screen sizes, working perfectly on mobile and web.
-3. Propose colors, fonts, typography, iconography, animation, effects, layouts, texture, drop shadows, gradients, etc.
-4. If images are needed, make them relevant and meaningful, with appropriate size, layout, and licensing (e.g., freely available). If real images are not available, provide placeholder images.
-5. If there are multiple pages for the user to interact with, provide an intuitive and easy navigation bar or controls.
+Ficha Técnica: Debe renderizarse dinámicamente desde un objeto JSON en la base de datos (ej: Peso, Variedad, Envase).
 
-**Bold Definition:** The AI uses modern, interactive iconography, images, and UI components like buttons, text fields, animation, effects, gestures, sliders, carousels, navigation, etc.
+Server Actions: Utilizar use server para mutaciones (Agregar al carrito, Checkout).
 
-1. Fonts \- Choose expressive and relevant typography. Stress and emphasize font sizes to ease understanding, e.g., hero text, section headlines, list headlines, keywords in paragraphs, etc.
-2. Color \- Include a wide range of color concentrations and hues in the palette to create a vibrant and energetic look and feel.
-3. Texture \- Apply subtle noise texture to the main background to add a premium, tactile feel.
-4. Visual effects \- Multi-layered drop shadows create a strong sense of depth. Cards have a soft, deep shadow to look "lifted."
-5. Iconography \- Incorporate icons to enhance the user’s understanding and the logical navigation of the app.
-6. Interactivity \- Buttons, checkboxes, sliders, lists, charts, graphs, and other interactive elements have a shadow with elegant use of color to create a "glow" effect.
+## 5. Modelo de Datos (Guía para Prisma)
+El esquema debe soportar flexibilidad en las características del producto.
 
-**Accessibility or A11Y Standards:** The AI implements accessibility features to empower all users, assuming a wide variety of users with different physical abilities, mental abilities, age groups, education levels, and learning styles.
+Producto:
 
-## **Iterative Development & User Interaction**
+id, nombre, descripcion, precio, stock, imagenes (String[]).
 
-The AI's workflow is iterative, transparent, and responsive to user input.
+especificaciones: Tipo Json. (Permite guardar { "peso_neto": "500g", "origen": "Mendoza" } sin crear columnas infinitas).
 
-* **Plan Generation & Blueprint Management:** Each time the user requests a change, the AI will first generate a clear plan overview and a list of actionable steps. This plan will then be used to **create or update a `blueprint.md` file** in the project's root directory.
-  * The blueprint.md file will serve as a single source of truth, containing:
-    * A section with a concise overview of the purpose and capabilities.
-    * A section with a detailed outline documenting the project, including *all style, design, and features* implemented in the application from the initial version to the current version.
-    * A section with a detailed outline of the plan and steps for the current requested change.
-  * Before initiating any new change or at the start of a new chat session, the AI will reference the blueprint.md to ensure full context and understanding of the application's current state and existing features. This ensures consistency and avoids redundant or conflicting modifications.
-* **Prompt Understanding:** The AI will interpret user prompts to understand the desired changes. It will ask clarifying questions if the prompt is ambiguous.
-* **Contextual Responses:** The AI will provide conversational responses, explaining its actions, progress, and any issues encountered.
-* **Error Checking Flow:**
-  1. **Important:** The AI will **not** start the dev server (`next dev`), as it is already managed by Firebase Studio.
-  2. **Code Change:** AI applies a code modification.
-  3. **Dependency Check:** If a new package is needed, AI runs `npm install`.
-  4. **Compile & Analyze:** AI runs `npm run lint` and monitors the dev server.
-  5. **Preview Check:** AI observes the browser preview for visual and runtime errors.
-  6. **Remediation/Report:** If errors are found, AI attempts automatic fixes. If unsuccessful, it reports details to the user.
+categoriaId: Relación.
+
+Categoria: id, nombre, slug.
+
+Usuario: Vinculado a Clerk ID.
+
+## 6. Flujo de Trabajo Iterativo (Blueprint)
+La IA gestionará un archivo blueprint.md en la raíz del proyecto para mantener el contexto.
+
+Antes de codificar: La IA leerá blueprint.md para entender el estado actual.
+
+Planificación: Generará un plan paso a paso antes de editar archivos.
+
+Actualización: Al terminar una tarea, la IA actualizará blueprint.md con las nuevas features y cambios de arquitectura realizados.
+
+Verificación: La IA intentará corregir errores de compilación automáticamente usando lint y análisis estático.
+
+## 7. Diseño Visual
+Imágenes: Usar siempre next/image.
+
+Feedback: Usar "Toasts" (Sonner) para confirmar acciones al usuario.
+
+Responsive: Diseño 100% adaptativo (Mobile, Tablet, Desktop).
