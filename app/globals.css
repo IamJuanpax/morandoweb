@@ -11,6 +11,8 @@
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
 
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+
   --color-primary: hsl(var(--primary));
   --color-primary-foreground: hsl(var(--primary-foreground));
 
@@ -40,12 +42,23 @@
   --animate-accordion-up: accordion-up 0.2s ease-out;
 
   @keyframes accordion-down {
-    from { height: 0 }
-    to { height: var(--radix-accordion-content-height) }
+    from {
+      height: 0
+    }
+
+    to {
+      height: var(--radix-accordion-content-height)
+    }
   }
+
   @keyframes accordion-up {
-    from { height: var(--radix-accordion-content-height) }
-    to { height: 0 }
+    from {
+      height: var(--radix-accordion-content-height)
+    }
+
+    to {
+      height: 0
+    }
   }
 }
 
@@ -54,6 +67,7 @@
   so we've added these compatibility styles to sure everything still looks the same.
 */
 @layer base {
+
   *,
   ::after,
   ::before,
@@ -66,10 +80,12 @@
 @utility container {
   margin-inline: auto;
   padding-inline: 2rem;
-  @media (width >= --theme(--breakpoint-sm)) {
+
+  @media (width >=--theme(--breakpoint-sm)) {
     max-width: none;
   }
-  @media (width >= 1400px) {
+
+  @media (width >=1400px) {
     max-width: 1400px;
   }
 }
@@ -81,11 +97,11 @@
   --card-foreground: 240 10% 3.9%;
   --popover: 0 0% 100%;
   --popover-foreground: 240 10% 3.9%;
-  
+
   /* Premium Gold Primary */
-  --primary: 48 96% 47%; 
+  --primary: 48 96% 47%;
   --primary-foreground: 240 5.9% 10%;
-  
+
   --secondary: 240 4.8% 95.9%;
   --secondary-foreground: 240 5.9% 10%;
   --muted: 240 4.8% 95.9%;
@@ -94,7 +110,7 @@
   --accent-foreground: 240 5.9% 10%;
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 0 0% 98%;
-  
+
   --border: 240 5.9% 90%;
   --input: 240 5.9% 90%;
   --ring: 48 96% 47%;
@@ -107,16 +123,17 @@
 }
 
 .dark {
-  --background: 240 10% 3.9%; /* Approx #0a0a0a */
+  --background: 240 10% 3.9%;
+  /* Approx #0a0a0a */
   --foreground: 0 0% 98%;
   --card: 240 10% 3.9%;
   --card-foreground: 0 0% 98%;
   --popover: 240 10% 3.9%;
   --popover-foreground: 0 0% 98%;
-  
+
   --primary: 48 96% 47%;
   --primary-foreground: 240 5.9% 10%;
-  
+
   --secondary: 240 3.7% 15.9%;
   --secondary-foreground: 0 0% 98%;
   --muted: 240 3.7% 15.9%;
@@ -125,7 +142,7 @@
   --accent-foreground: 0 0% 98%;
   --destructive: 0 62.8% 30.6%;
   --destructive-foreground: 0 0% 98%;
-  
+
   --border: 240 3.7% 15.9%;
   --input: 240 3.7% 15.9%;
   --ring: 48 96% 47%;
@@ -140,6 +157,7 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }

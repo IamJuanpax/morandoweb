@@ -12,7 +12,20 @@
 2.  [x] Configuración de Shadcn/UI (Manual: globals.css con variables y utils.ts).
 3.  [x] Inicialización de Prisma ORM y configuración de conexión a BD.
 4.  [x] Configuración de la estructura de carpetas (`(shop)`, `(admin)`, `lib`, `components`).
-5.  [ ] Implementación del Layout base con fuentes y colores definidos en `GEMINI.md`.
+5.  [x] Implementación del Layout base con fuentes (Outfit) y colores definidos en `GEMINI.md`.
+6.  [x] Creación de Layout específico para tienda `(shop)` con Navbar/Footer básicos.
+
+## Plan de Acción Inmediato (Fase 2: Infraestructura)
+1.  [x] Configuración de autenticación con Clerk (Middleware, Providers, Auth Pages).
+2.  [x] Creación de `ENV_EXAMPLE` para configuración de entorno.
+3.  [x] Definición del Schema de Prisma (User, Product, Category, Specifications).
+4.  [ ] Seed de base de datos con categorías y productos de prueba.
+5.  [x] Implementación de Navbar funcional con menú responsivo y UserButton de Clerk.
+
+## Plan de Acción Inmediato (Fase 3: Datos y Catálogo)
+1.  [ ] Ejecutar migración de DB y script de Seed (Requiere config de usuario).
+2.  [ ] Crear página de Catálogo (`/productos`) con listado dummy mientras no haya DB.
+3.  [ ] Crear página de Detalle de Producto (`/productos/[slug]`).
 
 ## Arquitectura de Aplicación
 - **Rutas Públicas**: `/app/(shop)`

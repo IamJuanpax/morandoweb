@@ -1,14 +1,55 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider = "prisma-client"
-  output   = "../lib/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id            String    @id @default(uuid())
+  clerkId       String    @unique
+  email         String    @unique
+  name          String?
+  role          Role      @default(USER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relaciones (Futuro: Ordenes, Favoritos, etc)
+}
+
+model Category {
+  id          String    @id @default(uuid())
+  name        String    @unique
+  slug        String    @unique
+  description String?
+  products    Product[]
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Product {
+  id              String   @id @default(uuid())
+  name            String
+  description     String   @db.Text
+  price           Decimal  @db.Decimal(10, 2)
+  stock           Int      @default(0)
+  images          String[] // Array de URLs
+  specifications  Json?    // { "peso": "500g", "variedad": "Arauco" }
+  isAvailable     Boolean  @default(true)
+  
+  categoryId      String
+  category        Category @relation(fields: [categoryId], references: [id])
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  @@index([categoryId])
 }
