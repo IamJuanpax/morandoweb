@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { UserButton } from "@clerk/nextjs";
+import { UserButton, SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import { Menu, ShoppingCart, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
@@ -63,7 +63,7 @@ export default function Navbar() {
                 </div>
 
                 {/* Actions */}
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
                     <Button variant="ghost" size="icon" className="relative" aria-label="Carrito de compras">
                         <ShoppingCart className="h-5 w-5" />
                         <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-primary text-[10px] font-bold text-black flex items-center justify-center">
@@ -71,17 +71,23 @@ export default function Navbar() {
                         </span>
                     </Button>
 
-                    <div className="flex items-center gap-2">
+                    <SignedOut>
+                        <SignInButton mode="modal">
+                            <Button variant="ghost" size="icon" aria-label="Iniciar Sesión">
+                                <User className="h-5 w-5" />
+                            </Button>
+                        </SignInButton>
+                    </SignedOut>
+
+                    <SignedIn>
                         <UserButton
-                            afterSignOutUrl="/"
                             appearance={{
                                 elements: {
                                     avatarBox: "h-9 w-9"
                                 }
                             }}
                         />
-                        {/* Fallback visual si no carga UserButton (opcional, Clerk maneja loading) */}
-                    </div>
+                    </SignedIn>
                 </div>
             </div>
         </header>

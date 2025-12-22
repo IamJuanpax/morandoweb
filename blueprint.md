@@ -24,8 +24,13 @@
 
 ## Plan de Acción Inmediato (Fase 3: Datos y Catálogo)
 1.  [ ] Ejecutar migración de DB y script de Seed (Requiere config de usuario).
-2.  [ ] Crear página de Catálogo (`/productos`) con listado dummy mientras no haya DB.
-3.  [ ] Crear página de Detalle de Producto (`/productos/[slug]`).
+2.  [x] Crear página de Catálogo (`/productos`) con listado dummy mientras no haya DB.
+3.  [x] Crear página de Detalle de Producto (`/productos/[slug]`) con datos dummy.
+
+## Estado Actual
+- **Catálogo**: Funcional con datos 'hardcodeados' (`lib/mock-data.ts`).
+- **Auth**: Configurada (Clerk), Navbar muestra botón de login si no hay sesión.
+- **DB**: Pendiente de conexión por parte del usuario.
 
 ## Arquitectura de Aplicación
 - **Rutas Públicas**: `/app/(shop)`
