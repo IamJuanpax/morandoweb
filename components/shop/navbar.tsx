@@ -10,6 +10,7 @@ const routes = [
     { href: "/", label: "Inicio" },
     { href: "/productos", label: "Catálogo" },
     { href: "/nosotros", label: "Nosotros" },
+    { href: "/contacto", label: "Contacto" },
 ];
 
 export default function Navbar() {

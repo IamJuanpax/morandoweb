@@ -27,10 +27,14 @@
 2.  [x] Crear página de Catálogo (`/productos`) con listado dummy mientras no haya DB.
 3.  [x] Crear página de Detalle de Producto (`/productos/[slug]`) con datos dummy.
 
+4.  [x] Crear página "Nosotros" con historia y valores de la marca.
+5.  [x] Crear página "Contacto" con formulario funcional (frontend) y datos de contacto.
+
 ## Estado Actual
 - **Catálogo**: Funcional con datos 'hardcodeados' (`lib/mock-data.ts`).
-- **Auth**: Configurada (Clerk), Navbar muestra botón de login si no hay sesión.
-- **DB**: Pendiente de conexión por parte del usuario.
+- **Páginas Institucionales**: "Nosotros" y "Contacto" implementadas.
+- **Auth**: Configurada y funcional.
+- **DB**: Conectada (se asume tras corrección de .env por usuario).
 
 ## Arquitectura de Aplicación
 - **Rutas Públicas**: `/app/(shop)`
