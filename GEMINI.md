@@ -74,13 +74,23 @@ Estructura de Carpetas:
 /lib: Configuración de Prisma (db.ts), Utils, Swagger.
 
 C. Funcionalidades Específicas
-Detalle de Producto:
+1. Detalle de Producto:
 
-Implementar una galería de imágenes interactiva (Zoom + Thumbnails).
+    Implementar una galería de imágenes interactiva (Zoom + Thumbnails).
 
-Ficha Técnica: Debe renderizarse dinámicamente desde un objeto JSON en la base de datos (ej: Peso, Variedad, Envase).
+    Ficha Técnica: Debe renderizarse dinámicamente desde un objeto JSON en la base de datos (ej: Peso, Variedad, Envase).
 
-Server Actions: Utilizar use server para mutaciones (Agregar al carrito, Checkout).
+    Server Actions: Utilizar use server para mutaciones (Agregar al carrito, Checkout).
+
+2. Sección "Mis Compras":
+
+    Ruta: /mis-compras.
+
+    Visualización: Lista de tarjetas donde cada tarjeta es una compra/pedido (Compra).
+
+    Estructura UI: Debe mostrar ID de pedido, Fecha, Estado (con Badge de color), Total y miniaturas de los ítems.
+
+    Interfaces TS: Definir interfaces estrictas Compra e ItemCompra en /types para manejar la data en el frontend antes de integrar el backend completo.
 
 ## 5. Modelo de Datos (Guía para Prisma)
 El esquema debe soportar flexibilidad en las características del producto.
