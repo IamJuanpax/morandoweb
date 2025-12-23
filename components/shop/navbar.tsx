@@ -5,6 +5,7 @@ import { UserButton, SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import { Menu, ShoppingCart, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
+import { CartSheet } from "@/components/cart/cart-sheet";
 
 const routes = [
     { href: "/", label: "Inicio" },
@@ -65,12 +66,7 @@ export default function Navbar() {
 
                 {/* Actions */}
                 <div className="flex items-center gap-2">
-                    <Button variant="ghost" size="icon" className="relative" aria-label="Carrito de compras">
-                        <ShoppingCart className="h-5 w-5" />
-                        <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-primary text-[10px] font-bold text-black flex items-center justify-center">
-                            0
-                        </span>
-                    </Button>
+                    <CartSheet />
 
                     <SignedOut>
                         <SignInButton mode="modal">
@@ -81,6 +77,11 @@ export default function Navbar() {
                     </SignedOut>
 
                     <SignedIn>
+                        <Link href="/mis-compras">
+                            <Button variant="ghost" size="sm" className="hidden md:flex">
+                                Mis Compras
+                            </Button>
+                        </Link>
                         <UserButton
                             appearance={{
                                 elements: {

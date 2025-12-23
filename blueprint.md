@@ -30,6 +30,13 @@
 4.  [x] Crear página "Nosotros" con historia y valores de la marca.
 5.  [x] Crear página "Contacto" con formulario funcional (frontend) y datos de contacto.
 
+## Plan de Acción Inmediato (Fase 4: Carrito y Ordenes)
+1.  [ ] Modificar Schema de Prisma (Agregar `Order`, `OrderItem`).
+2.  [ ] Implementar Store de Zustand para el Carrito (Persistente).
+3.  [ ] Crear componente de UI para el Carrito (SideCart / Sheet).
+4.  [ ] Implementar Server Action para checkout (Crear Orden).
+5.  [ ] Crear página de historial de compras para el usuario.
+
 ## Estado Actual
 - **Catálogo**: Funcional con datos 'hardcodeados' (`lib/mock-data.ts`).
 - **Páginas Institucionales**: "Nosotros" y "Contacto" implementadas.
