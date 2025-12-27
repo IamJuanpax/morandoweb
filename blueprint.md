@@ -40,8 +40,9 @@
 ## Plan de Acción Inmediato (Fase 5: Panel de Administración)
 1.  [x] Crear Layout Admin con protección de rutas (Role: ADMIN).
 2.  [x] Implementar Dashboard Principal con métricas básicas.
-3.  [ ] CRUD de Productos (Tabla, Crear, Editar, Soft Delete).
-4.  [ ] Gestión de Pedidos (Cambio de estados).
+3.  [x] CRUD de Productos (Tabla, Crear, Editar, Soft Delete).
+4.  [x] Gestión de Pedidos (Cambio de estados).
+5.  [x] Seed de base de datos con categorías (Script creado: `prisma/seed.ts`).
 
 ## Estado Actual
 - **Catálogo**: Funcional con datos 'hardcodeados' (`lib/mock-data.ts`).

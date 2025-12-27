@@ -1,65 +1,30 @@
+
 import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
+const CATEGORIES = [
+    { name: 'Aceitunas Verdes', slug: 'aceitunas-verdes', description: 'Las clásicas aceitunas verdes de mesa.' },
+    { name: 'Aceitunas Negras', slug: 'aceitunas-negras', description: 'Aceitunas negras naturales tipo griego.' },
+    { name: 'Aceitunas Rellenas', slug: 'aceitunas-rellenas', description: 'Variedades rellenas con pimiento, queso, etc.' },
+    { name: 'Aceites de Oliva', slug: 'aceites', description: 'Aceite de oliva virgen extra.' },
+    { name: 'Conservas / Pickles', slug: 'conservas', description: 'Vegetales en conserva.' },
+    { name: 'Pastas de Aceituna', slug: 'pastas', description: 'Tapenales y pastas untables.' },
+]
+
 async function main() {
-    console.log('🌱 Comenzando seed...')
+    console.log('Start seeding...')
 
-    // 1. Crear Categorías
-    const categorias = [
-        { name: 'Aceitunas Verdes', slug: 'aceitunas-verdes', description: 'Cosecha seleccionada manual.' },
-        { name: 'Aceitunas Negras', slug: 'aceitunas-negras', description: 'Variedades griegas y de mesa.' },
-        { name: 'Aceites de Oliva', slug: 'aceites', description: 'Virgen Extra de primera prensada.' },
-        { name: 'Rellenas', slug: 'rellenas', description: 'Sabores gourmet combinados.' },
-    ]
-
-    for (const cat of categorias) {
-        await prisma.category.upsert({
-            where: { slug: cat.slug },
+    for (const category of CATEGORIES) {
+        const cat = await prisma.category.upsert({
+            where: { slug: category.slug },
             update: {},
-            create: cat,
+            create: category,
         })
+        console.log(`Created category: ${cat.name}`)
     }
 
-    // Obtener referencias a categorías creadas
-    const catVerdes = await prisma.category.findUnique({ where: { slug: 'aceitunas-verdes' } })
-    const catNegras = await prisma.category.findUnique({ where: { slug: 'aceitunas-negras' } })
-
-    if (!catVerdes || !catNegras) throw new Error('Falló la creación de categorías')
-
-    // 2. Crear Productos
-    const productos = [
-        {
-            name: 'Aceitunas Verdes Premium 500g',
-            description: 'Aceitunas de tamaño Extra Large, carnosas y con el punto justo de sal.',
-            price: 4500,
-            stock: 50,
-            images: ['/placeholder-olive-green.jpg'],
-            categoryId: catVerdes.id,
-            specifications: { "peso_neto": "500g", "envase": "Frasco Vidrio", "variedad": "Arauco" }
-        },
-        {
-            name: 'Aceitunas Negras Griegas 250g',
-            description: 'Intensas, arrugadas y curadas en seco. Ideales para ensaladas.',
-            price: 5200,
-            stock: 30,
-            images: ['/placeholder-olive-black.jpg'],
-            categoryId: catNegras.id,
-            specifications: { "peso_neto": "250g", "envase": "Doypack", "estilo": "Griego" }
-        }
-    ]
-
-    for (const prod of productos) {
-        // Usamos el nombre para buscar si existe (en un caso real usaríamos slug o SKU)
-        const existing = await prisma.product.findFirst({ where: { name: prod.name } })
-        if (!existing) {
-            await prisma.product.create({
-                data: prod
-            })
-        }
-    }
-
-    console.log('✅ Seed completado correctamente.')
+    console.log('Seeding finished.')
 }
 
 main()
