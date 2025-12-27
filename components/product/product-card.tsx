@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Product } from "@/lib/mock-data";
-import { Button } from "@/components/ui/button";
-import { ShoppingCart } from "lucide-react";
+import { AddToCartButton } from "@/components/product/add-to-cart-button";
 import Image from "next/image";
 
 interface ProductCardProps {
@@ -37,10 +36,7 @@ export function ProductCard({ product }: ProductCardProps) {
                     <span className="text-lg font-bold">
                         ${product.price.toLocaleString("es-AR")}
                     </span>
-                    <Button size="sm" variant="secondary" className="gap-2">
-                        <ShoppingCart className="h-4 w-4" />
-                        <span className="sr-only lg:not-sr-only lg:inline">Agregar</span>
-                    </Button>
+                    <AddToCartButton product={product} />
                 </div>
             </div>
         </div>
