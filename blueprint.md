@@ -37,6 +37,12 @@
 4.  [ ] Implementar Server Action para checkout (Crear Orden).
 5.  [x] Crear página de historial de compras para el usuario (Corregido y securizado).
 
+## Plan de Acción Inmediato (Fase 5: Panel de Administración)
+1.  [x] Crear Layout Admin con protección de rutas (Role: ADMIN).
+2.  [x] Implementar Dashboard Principal con métricas básicas.
+3.  [ ] CRUD de Productos (Tabla, Crear, Editar, Soft Delete).
+4.  [ ] Gestión de Pedidos (Cambio de estados).
+
 ## Estado Actual
 - **Catálogo**: Funcional con datos 'hardcodeados' (`lib/mock-data.ts`).
 - **Páginas Institucionales**: "Nosotros" y "Contacto" implementadas.
