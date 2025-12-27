@@ -121,20 +121,6 @@ C. Funcionalidades Específicas
 
     Contenido: ID de orden, lista de productos y total.
 
-6. Catálogo y Navegación
-
-    Buscador: Input global en el Header.
-
-    Filtros Avanzados: Sidebar o Topbar que filtre por:
-
-    Categoría (Negras, Verdes, Rellenas).
-
-    Precio (Rango Min-Max).
-
-    Presentación (Doypack, Frasco - leer desde JSON specs o Tags).
-
-    Tecnología: Usar URL Params (?cat=negras&min=1000) para que los filtros sean compartibles.
-
 ## 5. Modelo de Datos (Guía para Prisma)
 El esquema debe soportar flexibilidad en las características del producto.
 
