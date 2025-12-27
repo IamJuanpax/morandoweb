@@ -13,15 +13,20 @@ export default function AboutPage() {
         <div className="flex flex-col">
             {/* Hero Section */}
             <section className="relative h-[400px] w-full flex items-center justify-center overflow-hidden bg-zinc-900">
-                <div className="absolute inset-0 opacity-40">
-                    {/* Placeholder for Hero Image */}
-                    <div className="w-full h-full bg-[url('https://images.unsplash.com/photo-1474979266404-74fc56104a63?q=80&w=2670&auto=format&fit=crop')] bg-cover bg-center" />
+                <div className="absolute inset-0 opacity-60">
+                    <Image
+                        src="/pexels-gary-barnes-6231906.jpg"
+                        alt="Familia Morando"
+                        fill
+                        className="object-cover"
+                        priority
+                    />
                 </div>
                 <div className="relative z-10 container text-center space-y-4">
-                    <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-white mb-4">
+                    <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-white mb-4 drop-shadow-lg">
                         Tradición <span className="text-primary">Olirva</span>
                     </h1>
-                    <p className="text-lg md:text-xl text-zinc-200 max-w-2xl mx-auto">
+                    <p className="text-lg md:text-xl text-zinc-100 max-w-2xl mx-auto drop-shadow-md font-medium">
                         Más de 50 años llevando el sabor auténtico de la tierra a tu mesa.
                         Pasión por la calidad y el detalle en cada aceituna.
                     </p>
@@ -46,11 +51,13 @@ export default function AboutPage() {
                         </div>
 
                     </div>
-                    <div className="relative aspect-square md:aspect-[4/3] rounded-2xl overflow-hidden bg-muted shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500">
-                        {/* Placeholder Image */}
-                        <div className="w-full h-full flex items-center justify-center bg-zinc-800 text-6xl">
-                            🏺
-                        </div>
+                    <div className="relative aspect-square md:aspect-[4/3] rounded-2xl overflow-hidden bg-muted shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500 group">
+                        <Image
+                            src="/pexels-pixabay-415340.jpg"
+                            alt="Nuestros Orígenes"
+                            fill
+                            className="object-cover group-hover:scale-105 transition-transform duration-700"
+                        />
                     </div>
                 </div>
             </section>

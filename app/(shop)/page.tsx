@@ -19,23 +19,23 @@ const HERO_SLIDES = [
         id: 1,
         title: "Excelencia en cada Oliva",
         subtitle: "Cosechadas a mano y seleccionadas para brindar un sabor único.",
-        image: "https://images.unsplash.com/photo-1622345095034-406ce8a4c330?q=80&w=2670&auto=format&fit=crop", // Campo Olivos
+        image: "/aceitunas-verdes-servidas-en-un-bol-para-un-brunch.jpg",
         cta: "Ver Productos",
         href: "/productos"
     },
     {
         id: 2,
-        title: "Aceite Virgen Extra",
-        subtitle: "Prensada en frío. El oro líquido de Mendoza en tu mesa.",
-        image: "https://images.unsplash.com/photo-1474979266404-74fc56104a63?q=80&w=2670&auto=format&fit=crop", // Aceite
+        title: "Sabor Auténtico",
+        subtitle: "Disfruta de lo mejor de nuestra tierra en tu mesa.",
+        image: "/alto-angulo-aceitunas-parmesano-y-pan.jpg",
         cta: "Descubrir",
-        href: "/productos/aceite-oliva"
+        href: "/productos"
     },
     {
         id: 3,
-        title: "Variedades Gourmet",
-        subtitle: "Rellenas, negras, griegas. Una experiencia para cada ocasión.",
-        image: "https://images.unsplash.com/photo-1594911467554-e05391d14cb3?q=80&w=2669&auto=format&fit=crop", // Aceitunas plato
+        title: "Calidad Premium",
+        subtitle: "Variedades seleccionadas para los paladares más exigentes.",
+        image: "/close-up-de-aceitunas-amarillas-frescas.jpg",
         cta: "Explorar Sabores",
         href: "/productos"
     },
@@ -43,15 +43,15 @@ const HERO_SLIDES = [
         id: 4,
         title: "Venta Directa de Fábrica",
         subtitle: "Sin intermediarios. La mejor calidad al mejor precio.",
-        image: "https://images.unsplash.com/photo-1649692468798-e7bd41bd0401?q=80&w=2600&auto=format&fit=crop", // Fabrica/Frascos
+        image: "/pexels-polina-tankilevitch-4109910.jpg",
         cta: "Comprar Ahora",
         href: "/contacto"
     },
     {
         id: 5,
-        title: "Garantía Morando",
-        subtitle: "Más de 50 años de tradición familiar nos avalan.",
-        image: "https://images.unsplash.com/photo-1574548079633-1496a8497d34?q=80&w=2670&auto=format&fit=crop", // Familia / Mesa
+        title: "Tradición Familiar",
+        subtitle: "Más de 50 años compartiendo nuestra pasión por las aceitunas.",
+        image: "/pexels-gary-barnes-6231906.jpg",
         cta: "Conocenos",
         href: "/nosotros"
     }

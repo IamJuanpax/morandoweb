@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Mail, MapPin, Phone, Send, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { useState, useRef } from "react";
+import Image from "next/image";
 import { sendContactForm } from "@/app/actions/contact";
 
 export default function ContactPage() {
@@ -123,7 +124,6 @@ export default function ContactPage() {
                         <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
                             <span className="flex items-center gap-2"><MapPin /> Mapa de Google Maps</span>
                         </div>
-                        {/* <iframe ... /> */}
                     </div>
                 </div>
             </div>

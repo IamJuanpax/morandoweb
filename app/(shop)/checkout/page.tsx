@@ -101,15 +101,21 @@ export default function CheckoutPage() {
 
                         <div className="space-y-3">
                             {/* Opción Mercado Pago Seleccionada */}
+                            {/* Opción Mercado Pago Seleccionada */}
                             <div className="p-4 border border-blue-200 bg-blue-50/50 dark:bg-blue-900/10 dark:border-blue-800 rounded-lg flex items-center justify-between cursor-pointer ring-1 ring-blue-500/50 shadow-sm">
                                 <div className="flex items-center gap-4">
-                                    <div className="h-10 w-16 bg-blue-100 dark:bg-blue-950 rounded flex items-center justify-center">
-                                        {/* Simulación Logo MP */}
-                                        <span className="font-bold text-blue-600 dark:text-blue-400 text-xs">MERCADO PAGO</span>
+                                    <div className="h-12 w-20 bg-white dark:bg-zinc-100 rounded flex items-center justify-center p-2 border">
+                                        <Image
+                                            src="https://http2.mlstatic.com/frontend-assets/mp-web-navigation/ui-navigation/5.19.5/mercadopago/logo__large.png"
+                                            alt="Mercado Pago"
+                                            width={80}
+                                            height={30}
+                                            className="object-contain"
+                                        />
                                     </div>
                                     <div>
-                                        <p className="font-medium text-blue-950 dark:text-blue-50">Pasarela de Pagos Segura</p>
-                                        <p className="text-xs text-blue-800/70 dark:text-blue-200/70">Tarjetas (Visa, Master), Efectivo, Dinero en cuenta.</p>
+                                        <p className="font-medium text-blue-950 dark:text-blue-50">Mercado Pago</p>
+                                        <p className="text-xs text-blue-800/70 dark:text-blue-200/70">Tarjetas, Efectivo y Dinero en cuenta.</p>
                                     </div>
                                 </div>
                                 <div className="h-5 w-5 rounded-full border-2 border-blue-600 bg-blue-600 flex items-center justify-center">
