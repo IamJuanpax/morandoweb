@@ -9,7 +9,8 @@ import { ReactElement } from 'react';
 // Aquí puedes definir el email donde se recibirán las consultas
 const DESTINATION_EMAIL = process.env.CONTACT_EMAIL || "jubritos20@gmail.com";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Inicialización segura para evitar crash si falta la API Key
+const resend = new Resend(process.env.RESEND_API_KEY || 're_123456789');
 
 export async function sendContactForm(formData: FormData) {
     const name = formData.get("name") as string;
