@@ -113,7 +113,7 @@ C. Funcionalidades Específicas
 
     Webhook: Actualizar el estado del pedido en DB solo cuando MP confirme el pago (payment.created / approved).
 
-5. Emails Transaccionales (Resend)
+5. [x] Emails Transaccionales (Resend) - Implementado (Requiere API Key).
 
     Crear templates con React-Email.
 

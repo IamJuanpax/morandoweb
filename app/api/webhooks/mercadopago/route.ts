@@ -1,49 +1,69 @@
-
 import { NextResponse } from "next/server";
-import crypto from "crypto";
 import prisma from "@/lib/db";
+import { sendOrderConfirmationEmail } from "@/lib/mail";
 
 // Webhook para recibir notificaciones de Mercado Pago
 export async function POST(request: Request) {
-    // Validar firma de seguridad (opcional pero recomendado)
-    // const signature = request.headers.get("x-signature");
-    // const requestId = request.headers.get("x-request-id");
-
     const body = await request.json();
     const { type, data } = body;
 
     // Solo nos interesa cuando se crea o actualiza un pago
     if (type === "payment") {
         try {
-            // Consultar el estado del pago a la API de MP usando el ID
-            // Nota: Por seguridad, deberíamos llamar a MP para verificar el estado real y no confiar solo en el body.
-            // Para simplificar este MVP, asumiremos que si llega aquí, verificamos el estado usando fetch a MP.
-
             const paymentId = data.id;
 
-            const response = await fetch(`https://api.mercadopago.com/v1/payments/${paymentId}`, {
-                headers: {
-                    "Authorization": `Bearer ${process.env.MP_ACCESS_TOKEN}`
-                }
-            });
+            // Verificar estado en MP (Simulado si no hay acceso real en este momento)
+            let isApproved = false;
+            let orderId = null;
 
-            if (!response.ok) {
-                console.error("Error fetching payment from MP");
-                return NextResponse.json({ status: "error" }, { status: 500 });
+            if (process.env.MP_ACCESS_TOKEN) {
+                const response = await fetch(`https://api.mercadopago.com/v1/payments/${paymentId}`, {
+                    headers: { "Authorization": `Bearer ${process.env.MP_ACCESS_TOKEN}` }
+                });
+                if (response.ok) {
+                    const paymentData = await response.json();
+                    if (paymentData.status === "approved") {
+                        isApproved = true;
+                        orderId = paymentData.external_reference;
+                    }
+                }
+            } else {
+                // Fallback para pruebas locales si se dispara manualmente
+                console.log("⚠️ Webhook sin validación MP (Token faltante)");
+                // return NextResponse.json({ status: "ignored" }); 
             }
 
-            const paymentData = await response.json();
+            // Nota: Si estás probando en local sin ngrok, este webhook no será llamado por MP.
+            // Esta lógica es para cuando despliegues o uses un túnel.
 
-            // "approved" es el estado de éxito
-            if (paymentData.status === "approved") {
-                const orderId = paymentData.external_reference;
+            if (isApproved && orderId) {
+                // 1. Actualizar Orden
+                const order = await prisma.order.update({
+                    where: { id: orderId },
+                    data: { status: "paid" },
+                    include: {
+                        user: true,
+                        items: {
+                            include: { product: true }
+                        }
+                    }
+                });
+                console.log(`✅ Orden ${orderId} marcada como pagada.`);
 
-                if (orderId) {
-                    await prisma.order.update({
-                        where: { id: orderId },
-                        data: { status: "paid" }
+                // 2. Enviar Email
+                if (order.user.email) {
+                    await sendOrderConfirmationEmail({
+                        email: order.user.email,
+                        orderId: order.id,
+                        total: Number(order.total),
+                        userName: order.user.name || "Cliente",
+                        items: order.items.map(item => ({
+                            name: item.product.name,
+                            quantity: item.quantity,
+                            price: Number(item.price),
+                            image: item.product.images[0]
+                        }))
                     });
-                    console.log(`Orden ${orderId} marcada como pagada.`);
                 }
             }
 

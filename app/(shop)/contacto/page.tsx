@@ -4,16 +4,33 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Mail, MapPin, Phone, Send } from "lucide-react";
+import { Mail, MapPin, Phone, Send, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { useState, useRef } from "react";
+import { sendContactForm } from "@/app/actions/contact";
 
 export default function ContactPage() {
-    const handleSubmit = (e: React.FormEvent) => {
+    const [loading, setLoading] = useState(false);
+    const formRef = useRef<HTMLFormElement>(null);
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // Aquí iría la lógica real de envío
-        toast.success("Mensaje enviado correctamente", {
-            description: "Nos pondremos en contacto contigo a la brevedad."
-        });
+        setLoading(true);
+
+        const formData = new FormData(e.currentTarget);
+        const result = await sendContactForm(formData);
+
+        if (result.success) {
+            toast.success("¡Mensaje enviado!", {
+                description: "Nos pondremos en contacto pronto."
+            });
+            formRef.current?.reset();
+        } else {
+            toast.error("Error al enviar", {
+                description: result.message
+            });
+        }
+        setLoading(false);
     };
 
     return (
@@ -28,36 +45,37 @@ export default function ContactPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24">
                 {/* Formulario */}
                 <div className="order-2 lg:order-1">
-                    <form onSubmit={handleSubmit} className="space-y-6 bg-card p-6 md:p-8 rounded-xl border shadow-sm">
+                    <form ref={formRef} onSubmit={handleSubmit} className="space-y-6 bg-card p-6 md:p-8 rounded-xl border shadow-sm">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="space-y-2">
                                 <Label htmlFor="nombre">Nombre</Label>
-                                <Input id="nombre" placeholder="Juan Pérez" required />
+                                <Input id="nombre" name="name" placeholder="Juan Pérez" required />
                             </div>
                             <div className="space-y-2">
                                 <Label htmlFor="email">Email</Label>
-                                <Input id="email" type="email" placeholder="juan@ejemplo.com" required />
+                                <Input id="email" name="email" type="email" placeholder="juan@ejemplo.com" required />
                             </div>
                         </div>
 
                         <div className="space-y-2">
                             <Label htmlFor="asunto">Asunto</Label>
-                            <Input id="asunto" placeholder="Consulta sobre productos / Venta Mayorista" required />
+                            <Input id="asunto" name="subject" placeholder="Consulta sobre productos / Venta Mayorista" required />
                         </div>
 
                         <div className="space-y-2">
                             <Label htmlFor="mensaje">Mensaje</Label>
                             <Textarea
                                 id="mensaje"
+                                name="message"
                                 placeholder="Hola, quisiera consultar precios por mayor..."
                                 className="min-h-[150px]"
                                 required
                             />
                         </div>
 
-                        <Button type="submit" size="lg" className="w-full md:w-auto gap-2">
-                            <Send className="h-4 w-4" />
-                            Enviar Mensaje
+                        <Button type="submit" size="lg" className="w-full md:w-auto gap-2" disabled={loading}>
+                            {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+                            {loading ? "Enviando..." : "Enviar Mensaje"}
                         </Button>
                     </form>
                 </div>

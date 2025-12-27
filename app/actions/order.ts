@@ -22,36 +22,29 @@ export async function createOrder(cartItems: CartItemInput[]) {
     }
 
     // Verificar si el usuario existe en nuestra BD
-    let user;
-    try {
-        console.log("🔍 Buscando usuario en DB para Clerk ID:", userId);
-        if (!process.env.DATABASE_URL) {
-            console.error("❌ DATABASE_URL no está definida en el entorno");
-            return { success: false, message: "Error interno: Configuración de base de datos faltante." };
-        }
+    console.log("🔍 Buscando usuario en DB para Clerk ID:", userId);
 
-        user = await prisma.user.findUnique({
-            where: { clerkId: userId },
-        });
-    } catch (dbError: any) {
-        console.error("❌ Error DB al buscar usuario:", dbError);
-        return { success: false, message: `Error de conexión con base de datos: ${dbError.message}` };
-    }
+    const user = await prisma.user.findUnique({
+        where: { clerkId: userId },
+    });
 
     if (!user) {
         console.warn("⚠️ Usuario no encontrado en DB:", userId);
-        return { success: false, message: "Error de cuenta: Usuario no sincronizado con la base de datos." };
+        return { success: false, message: "Error de cuenta: Tu usuario no está sincronizado correctamente. Por favor contacta soporte." };
     }
 
     let total = 0;
     const orderItemsData = [];
     const mpItems = [];
 
-    // Validar productos y calcular total
+    // Validar productos con la base de datos real
     for (const item of cartItems) {
         const product = await prisma.product.findUnique({ where: { id: item.id } });
 
-        if (!product) continue;
+        if (!product) {
+            console.warn(`Producto ${item.id} no encontrado en DB, saltando.`);
+            continue; // Si un producto no existe, no lo procesamos
+        }
 
         const price = Number(product.price);
         total += price * item.quantity;
@@ -62,19 +55,18 @@ export async function createOrder(cartItems: CartItemInput[]) {
             price: product.price
         });
 
-        // Items formato Mercado Pago
         mpItems.push({
             id: product.id,
             title: product.name,
             quantity: item.quantity,
             unit_price: price,
             currency_id: 'ARS',
-            picture_url: product.images[0] || '', // Opcional
+            picture_url: product.images[0] || '',
         });
     }
 
     if (orderItemsData.length === 0) {
-        return { success: false, message: "El carrito está vacío o contiene productos no válidos." };
+        return { success: false, message: "El carrito está vacío o los productos ya no están disponibles." };
     }
 
     try {
@@ -92,8 +84,8 @@ export async function createOrder(cartItems: CartItemInput[]) {
 
         // 2. Crear Preferencia de Mercado Pago
         if (!process.env.MP_ACCESS_TOKEN) {
-            console.warn("MP_ACCESS_TOKEN no configurado. Se crea la orden pero no el checkout.");
-            return { success: true, orderId: order.id, url: null };
+            console.warn("MP_ACCESS_TOKEN no configurado.");
+            return { success: false, message: "Error de configuración de pagos. Contacte al administrador." };
         }
 
         const preference = new Preference(client);
@@ -101,7 +93,7 @@ export async function createOrder(cartItems: CartItemInput[]) {
             body: {
                 items: mpItems,
                 metadata: {
-                    orderId: order.id, // Metadata para el webhook
+                    orderId: order.id,
                 },
                 external_reference: order.id,
                 back_urls: {
@@ -113,13 +105,10 @@ export async function createOrder(cartItems: CartItemInput[]) {
             }
         });
 
-        revalidatePath("/mis-compras");
-
-        // Retornar la URL de pago
         return { success: true, orderId: order.id, url: response.init_point };
 
-    } catch (error) {
+    } catch (error: any) {
         console.error("Error creating order/preference:", error);
-        return { success: false, message: "Error interno al procesar el pago." };
+        return { success: false, message: "Error al procesar el pedido. Intente nuevamente." };
     }
 }
