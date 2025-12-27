@@ -35,7 +35,7 @@
 2.  [ ] Implementar Store de Zustand para el Carrito (Persistente).
 3.  [ ] Crear componente de UI para el Carrito (SideCart / Sheet).
 4.  [ ] Implementar Server Action para checkout (Crear Orden).
-5.  [ ] Crear página de historial de compras para el usuario.
+5.  [x] Crear página de historial de compras para el usuario (Corregido y securizado).
 
 ## Estado Actual
 - **Catálogo**: Funcional con datos 'hardcodeados' (`lib/mock-data.ts`).
