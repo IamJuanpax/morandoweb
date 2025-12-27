@@ -98,12 +98,29 @@ export default function CheckoutPage() {
                             <span className="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-md">2</span>
                             Método de Pago
                         </h2>
-                        <div className="p-4 border rounded-lg bg-neutral-50 dark:bg-neutral-900/50 flex items-center gap-4 opacity-75 cursor-not-allowed">
-                            <CreditCard className="h-6 w-6 text-neutral-400" />
-                            <div>
-                                <p className="font-medium">Tarjeta de Crédito / Débito</p>
-                                <p className="text-xs text-neutral-500">Próximamente disponible. (Simulado para demostración)</p>
+
+                        <div className="space-y-3">
+                            {/* Opción Mercado Pago Seleccionada */}
+                            <div className="p-4 border border-blue-200 bg-blue-50/50 dark:bg-blue-900/10 dark:border-blue-800 rounded-lg flex items-center justify-between cursor-pointer ring-1 ring-blue-500/50 shadow-sm">
+                                <div className="flex items-center gap-4">
+                                    <div className="h-10 w-16 bg-blue-100 dark:bg-blue-950 rounded flex items-center justify-center">
+                                        {/* Simulación Logo MP */}
+                                        <span className="font-bold text-blue-600 dark:text-blue-400 text-xs">MERCADO PAGO</span>
+                                    </div>
+                                    <div>
+                                        <p className="font-medium text-blue-950 dark:text-blue-50">Pasarela de Pagos Segura</p>
+                                        <p className="text-xs text-blue-800/70 dark:text-blue-200/70">Tarjetas (Visa, Master), Efectivo, Dinero en cuenta.</p>
+                                    </div>
+                                </div>
+                                <div className="h-5 w-5 rounded-full border-2 border-blue-600 bg-blue-600 flex items-center justify-center">
+                                    <div className="h-2 w-2 rounded-full bg-white" />
+                                </div>
                             </div>
+
+                            <p className="text-xs text-neutral-500 px-1 pt-2 flex items-center gap-2">
+                                <ShieldCheck className="h-3 w-3" />
+                                Serás redirigido al sitio seguro de Mercado Pago para finalizar.
+                            </p>
                         </div>
                     </div>
                 </div>

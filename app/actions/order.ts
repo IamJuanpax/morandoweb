@@ -22,12 +22,25 @@ export async function createOrder(cartItems: CartItemInput[]) {
     }
 
     // Verificar si el usuario existe en nuestra BD
-    const user = await prisma.user.findUnique({
-        where: { clerkId: userId },
-    });
+    let user;
+    try {
+        console.log("🔍 Buscando usuario en DB para Clerk ID:", userId);
+        if (!process.env.DATABASE_URL) {
+            console.error("❌ DATABASE_URL no está definida en el entorno");
+            return { success: false, message: "Error interno: Configuración de base de datos faltante." };
+        }
+
+        user = await prisma.user.findUnique({
+            where: { clerkId: userId },
+        });
+    } catch (dbError: any) {
+        console.error("❌ Error DB al buscar usuario:", dbError);
+        return { success: false, message: `Error de conexión con base de datos: ${dbError.message}` };
+    }
 
     if (!user) {
-        return { success: false, message: "Error de cuenta: Usuario no sincronizado." };
+        console.warn("⚠️ Usuario no encontrado en DB:", userId);
+        return { success: false, message: "Error de cuenta: Usuario no sincronizado con la base de datos." };
     }
 
     let total = 0;
