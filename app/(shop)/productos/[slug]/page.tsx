@@ -1,7 +1,6 @@
 import { MOCK_PRODUCTS } from "@/lib/mock-data";
-import { Button } from "@/components/ui/button";
-import { ShoppingCart, Check, ShieldCheck, Truck } from "lucide-react";
-import Image from "next/image";
+import { AddToCart } from "@/components/product/add-to-cart";
+import { ShieldCheck, Truck } from "lucide-react";
 import { notFound } from "next/navigation";
 
 // Permitir parámetros dinámicos en versiones recientes de Next
@@ -37,14 +36,14 @@ export default async function ProductPage({ params }: any) {
                     {/* Placeholder until real images */}
                     <span className="text-9xl">🫒</span>
                     {/* 
-             <Image 
-                src={product.image} 
-                alt={product.name} 
-                fill 
-                className="object-cover"
-                priority
-             /> 
-             */}
+                     <Image 
+                        src={product.image} 
+                        alt={product.name} 
+                        fill 
+                        className="object-cover"
+                        priority
+                     /> 
+                     */}
                 </div>
 
                 {/* Info Column */}
@@ -80,19 +79,8 @@ export default async function ProductPage({ params }: any) {
                         </div>
                     </div>
 
-                    <div className="mt-6 flex flex-col gap-4 sm:flex-row">
-                        {/* Counter Placeholder */}
-                        <div className="flex items-center border rounded-md w-fit">
-                            <Button variant="ghost" size="icon" className="h-10 w-10">-</Button>
-                            <span className="w-8 text-center">1</span>
-                            <Button variant="ghost" size="icon" className="h-10 w-10">+</Button>
-                        </div>
-
-                        <Button size="lg" className="flex-1 gap-2 text-base">
-                            <ShoppingCart className="h-5 w-5" />
-                            Agregar al Carrito
-                        </Button>
-                    </div>
+                    {/* Add To Cart Section */}
+                    <AddToCart product={product} />
 
                     <div className="mt-6 grid gap-4 text-sm text-muted-foreground">
                         <div className="flex items-center gap-3">

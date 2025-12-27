@@ -97,7 +97,4 @@ export const useCartStore = create<CartState>()(
     )
 );
 
-// Manual type patch for calculateTotal since it wasn't in the interface but used internally.
-// Actually, let's add it to interface if we want to call it, or just rely on the actions calling it.
-// The internal `get().calculateTotal()` works because it's in the object, but Typescript might complain if not in CartState.
-// Let's fix the interface.
+

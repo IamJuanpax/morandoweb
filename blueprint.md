@@ -32,8 +32,8 @@
 
 ## Plan de Acción Inmediato (Fase 4: Carrito y Ordenes)
 1.  [ ] Modificar Schema de Prisma (Agregar `Order`, `OrderItem`).
-2.  [ ] Implementar Store de Zustand para el Carrito (Persistente).
-3.  [ ] Crear componente de UI para el Carrito (SideCart / Sheet).
+2.  [x] Implementar Store de Zustand para el Carrito (Persistente).
+3.  [x] Crear componente de UI para el Carrito (SideCart / Sheet).
 4.  [ ] Implementar Server Action para checkout (Crear Orden).
 5.  [x] Crear página de historial de compras para el usuario (Corregido y securizado).
 
