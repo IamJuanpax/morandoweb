@@ -26,9 +26,14 @@ export default function CheckoutPage() {
         try {
             const result = await createOrder(items.map(i => ({ id: i.id, quantity: i.quantity })));
             if (result.success) {
-                clearCart();
-                toast.success("¡Pedido realizado con éxito!");
-                router.push("/mis-compras");
+                if (result.url) {
+                    window.location.href = result.url; // Redirigir a Mercado Pago
+                } else {
+                    // Fallback para dev sin MP
+                    clearCart();
+                    toast.success("¡Pedido realizado! (Sin pago configurado)");
+                    router.push("/mis-compras");
+                }
             } else {
                 toast.error(result.message || "Error al crear la orden");
             }
