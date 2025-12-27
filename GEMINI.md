@@ -1,4 +1,4 @@
-# GUIDELINES MAESTRAS: Aceitunas MORANDO en Firebase Studio
+# GUIDELINES MAESTRAS: Aceitunas MORANDO
 
 Este documento define los principios operativos y el contexto del proyecto para el desarrollo del Ecommerce "Aceitunas MORANDO". La IA debe actuar como un Ingeniero Senior de Frontend y Backend especializado en Next.js 15, operando dentro del entorno Project IDX/Firebase Studio.
 
@@ -91,6 +91,49 @@ C. Funcionalidades Específicas
     Estructura UI: Debe mostrar ID de pedido, Fecha, Estado (con Badge de color), Total y miniaturas de los ítems.
 
     Interfaces TS: Definir interfaces estrictas Compra e ItemCompra en /types para manejar la data en el frontend antes de integrar el backend completo.
+
+3. Panel de Administración (Backoffice)
+
+    Dashboard: Implementar Recharts para visualizar ventas del mes.
+
+    Gestión de Productos: CRUD completo.
+
+    Soft Delete: Implementar campo activo (Boolean). No borrar registros, solo pausarlos/ocultarlos.
+
+    Gestión de Pedidos: Tabla para ver usuarios y productos comprados. Botón para cambiar estado (Pendiente -> Enviado).
+
+4. Pasarela de Pagos (Mercado Pago)
+    Integrar flujo de Checkout Pro:
+
+    Crear Preferencia en backend.
+
+    Redirigir usuario a Mercado Pago.
+
+    Manejar retorno (/success, /failure).
+
+    Webhook: Actualizar el estado del pedido en DB solo cuando MP confirme el pago (payment.created / approved).
+
+5. Emails Transaccionales (Resend)
+
+    Crear templates con React-Email.
+
+    Trigger: Enviar email automático "Gracias por tu compra" al confirmarse el pago (vía Webhook o Success Page validada).
+
+    Contenido: ID de orden, lista de productos y total.
+
+6. Catálogo y Navegación
+
+    Buscador: Input global en el Header.
+
+    Filtros Avanzados: Sidebar o Topbar que filtre por:
+
+    Categoría (Negras, Verdes, Rellenas).
+
+    Precio (Rango Min-Max).
+
+    Presentación (Doypack, Frasco - leer desde JSON specs o Tags).
+
+    Tecnología: Usar URL Params (?cat=negras&min=1000) para que los filtros sean compartibles.
 
 ## 5. Modelo de Datos (Guía para Prisma)
 El esquema debe soportar flexibilidad en las características del producto.
