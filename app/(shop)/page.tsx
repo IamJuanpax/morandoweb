@@ -9,6 +9,7 @@ import {
     CarouselPrevious,
 } from "@/components/ui/carousel";
 import { ArrowRight, Star, ShoppingBag, Leaf, Award } from "lucide-react";
+import { NewsletterForm } from "@/components/home/newsletter-form";
 
 export const metadata = {
     title: "Inicio",
@@ -54,6 +55,27 @@ const HERO_SLIDES = [
         image: "/pexels-gary-barnes-6231906.jpg",
         cta: "Conocenos",
         href: "/nosotros"
+    }
+];
+
+const VARIETIES = [
+    {
+        id: 1,
+        title: "Aceitunas Clásicas",
+        image: "/aceitunas-verdes-servidas-en-un-bol-para-un-brunch.jpg",
+        href: "/productos?categoria=clasicas"
+    },
+    {
+        id: 2,
+        title: "Selección Premium",
+        image: "/close-up-de-aceitunas-amarillas-frescas.jpg",
+        href: "/productos?categoria=premium"
+    },
+    {
+        id: 3,
+        title: "Gourmet & Rellenas",
+        image: "/alto-angulo-aceitunas-parmesano-y-pan.jpg",
+        href: "/productos?categoria=gourmet"
     }
 ];
 
@@ -106,7 +128,6 @@ export default function HomePage() {
                 </Carousel>
             </section>
 
-            {/* 2. CATEGORÍAS (Placeholder) */}
             <section className="py-20 container">
                 <div className="flex items-center justify-between mb-12">
                     <div>
@@ -119,18 +140,23 @@ export default function HomePage() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {/* Category Placeholder Cards */}
-                    {[1, 2, 3].map((i) => (
-                        <div key={i} className="group relative aspect-[4/5] overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-800 border cursor-pointer">
-                            <div className="absolute inset-0 flex items-center justify-center text-6xl group-hover:scale-110 transition-transform duration-500">
-                                {i === 1 ? '🫒' : i === 2 ? '🏺' : '🌶️'}
+                    {/* Category Cards */}
+                    {VARIETIES.map((variety) => (
+                        <Link key={variety.id} href={variety.href}>
+                            <div className="group relative aspect-[4/5] overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-800 border cursor-pointer">
+                                <Image
+                                    src={variety.image}
+                                    alt={variety.title}
+                                    fill
+                                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex items-end p-6">
+                                    <h3 className="text-2xl font-bold text-white group-hover:text-primary transition-colors">
+                                        {variety.title}
+                                    </h3>
+                                </div>
                             </div>
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-6">
-                                <h3 className="text-xl font-bold text-white">
-                                    {i === 1 ? 'Aceitunas Clásicas' : i === 2 ? 'Aceites Premium' : 'Gourmet & Rellenas'}
-                                </h3>
-                            </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </section>
@@ -169,14 +195,7 @@ export default function HomePage() {
                     <p className="text-muted-foreground text-lg">
                         Recibe ofertas exclusivas, recetas y novedades antes que nadie.
                     </p>
-                    <div className="flex gap-2 max-w-md mx-auto">
-                        <input
-                            type="email"
-                            placeholder="Tu email aquí..."
-                            className="flex h-12 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                        />
-                        <Button size="lg" className="shrink-0">Suscribirse</Button>
-                    </div>
+                    <NewsletterForm />
                 </div>
             </section>
 

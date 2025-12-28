@@ -11,17 +11,12 @@ export function ProductCard({ product }: ProductCardProps) {
     return (
         <div className="group relative flex flex-col overflow-hidden rounded-lg border bg-card text-card-foreground shadow-sm transition-all hover:shadow-md">
             <Link href={`/productos/${product.slug}`} className="aspect-square relative overflow-hidden bg-muted/20">
-                <div className="absolute inset-0 flex items-center justify-center text-muted-foreground bg-secondary">
-                    {/* Placeholder until we have real images */}
-                    <span className="text-4xl">🫒</span>
-                </div>
-                {/* Usamos un div como placeholder si no hay imagen real, en producción usar next/image con fallback */}
-                {/* <Image
-          src={product.image}
-          alt={product.name}
-          fill
-          className="object-cover transition-transform duration-300 group-hover:scale-105"
-        /> */}
+                <Image
+                    src={product.image}
+                    alt={product.name}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                />
             </Link>
             <div className="flex flex-col flex-1 p-4">
                 <div className="mb-2">

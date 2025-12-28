@@ -25,10 +25,12 @@
 ## Plan de Acción Inmediato (Fase 3: Datos y Catálogo)
 1.  [ ] Ejecutar migración de DB y script de Seed (Requiere config de usuario).
 2.  [x] Crear página de Catálogo (`/productos`) con listado dummy mientras no haya DB.
+3.  [x] Actualizar sección "Nuestras Variedades" en Home con imágenes reales.
 3.  [x] Crear página de Detalle de Producto (`/productos/[slug]`) con datos dummy.
 
 4.  [x] Crear página "Nosotros" con historia y valores de la marca.
 5.  [x] Crear página "Contacto" con formulario funcional (frontend) y datos de contacto.
+6.  [x] Implementar suscripción a Newsletter en Home (Resend).
 
 ## Plan de Acción Inmediato (Fase 4: Carrito y Ordenes)
 1.  [ ] Modificar Schema de Prisma (Agregar `Order`, `OrderItem`).
