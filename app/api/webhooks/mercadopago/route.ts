@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/db";
-import { sendOrderConfirmationEmail } from "@/lib/mail";
+import { sendOrderConfirmationEmail, sendAdminSaleNotification } from "@/lib/mail";
 
 // Webhook para recibir notificaciones de Mercado Pago
 export async function POST(request: Request) {
@@ -50,7 +50,7 @@ export async function POST(request: Request) {
                 });
                 console.log(`✅ Orden ${orderId} marcada como pagada.`);
 
-                // 2. Enviar Email
+                // 2. Enviar Email al Cliente
                 if (order.user.email) {
                     await sendOrderConfirmationEmail({
                         email: order.user.email,
@@ -65,6 +65,22 @@ export async function POST(request: Request) {
                         }))
                     });
                 }
+
+                // 3. Notificar al Admin (Nuevo)
+                await sendAdminSaleNotification({
+                    orderId: order.id,
+                    total: Number(order.total),
+                    items: order.items.map(item => ({
+                        name: item.product.name,
+                        quantity: item.quantity,
+                        price: Number(item.price),
+                        image: item.product.images[0]
+                    })),
+                    buyerName: order.user.name || "Usuario",
+                    buyerEmail: order.user.email || "No especificado",
+                    date: new Date(),
+                    paymentMethod: "Mercado Pago"
+                });
             }
 
         } catch (error) {

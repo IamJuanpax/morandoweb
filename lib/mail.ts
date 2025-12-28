@@ -2,6 +2,7 @@
 import { Resend } from 'resend';
 import { OrderReceiptEmail } from '@/components/emails/order-receipt';
 import { NewsletterWelcomeEmail } from '@/components/emails/newsletter-welcome';
+import { AdminSaleNotificationEmail } from '@/components/emails/admin-sale-notification';
 import { ReactElement } from 'react';
 
 const resend = new Resend(process.env.RESEND_API_KEY || 're_123456789');
@@ -70,6 +71,61 @@ export async function sendOrderConfirmationEmail({
         return data;
     } catch (error) {
         console.error("❌ Error sending email:", error);
+        return null;
+    }
+}
+
+interface SendAdminNotificationProps {
+    orderId: string;
+    total: number;
+    items: Array<{
+        name: string;
+        quantity: number;
+        price: number;
+        image?: string;
+    }>;
+    buyerName: string;
+    buyerEmail: string;
+    date: Date;
+    paymentMethod?: string;
+}
+
+export async function sendAdminSaleNotification({
+    orderId,
+    total,
+    items,
+    buyerName,
+    buyerEmail,
+    date,
+    paymentMethod = "Mercado Pago"
+}: SendAdminNotificationProps) {
+    const adminEmail = process.env.CORREO_VENTAS;
+
+    if (!process.env.RESEND_API_KEY || !adminEmail) {
+        console.warn("⚠️ RESEND_API_KEY or CORREO_VENTAS is missing. Admin email skipped.");
+        return;
+    }
+
+    try {
+        const data = await resend.emails.send({
+            from: 'Morando Bot <onboarding@resend.dev>',
+            to: [adminEmail],
+            subject: `🔔 Nueva Venta: Orden #${orderId} - $${total}`,
+            react: AdminSaleNotificationEmail({
+                orderId,
+                total,
+                items,
+                buyerName,
+                buyerEmail,
+                date,
+                paymentMethod
+            }) as ReactElement,
+        });
+
+        console.log(`📧 Admin notification sent to ${adminEmail}`, data);
+        return data;
+    } catch (error) {
+        console.error("❌ Error sending admin notification:", error);
         return null;
     }
 }
