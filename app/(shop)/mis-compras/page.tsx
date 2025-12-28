@@ -13,19 +13,41 @@ export default async function MisComprasPage() {
         redirect("/sign-in");
     }
 
-    const user = await prisma.user.findUnique({
-        where: { clerkId: userId },
-        include: {
-            orders: {
-                include: {
-                    items: {
-                        include: { product: true }
-                    }
-                },
-                orderBy: { createdAt: 'desc' }
+    let user = null;
+
+    try {
+        user = await prisma.user.findUnique({
+            where: { clerkId: userId },
+            include: {
+                orders: {
+                    include: {
+                        items: {
+                            include: { product: true }
+                        }
+                    },
+                    orderBy: { createdAt: 'desc' }
+                }
             }
-        }
-    });
+        });
+    } catch (error) {
+        console.error("Database connection error:", error);
+        return (
+            <div className="min-h-[60vh] flex flex-col items-center justify-center p-4 text-center">
+                <div className="bg-red-50 dark:bg-red-900/20 p-6 rounded-full mb-6">
+                    <svg className="w-12 h-12 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                </div>
+                <h1 className="text-2xl font-bold mb-2">Servicio no disponible</h1>
+                <p className="text-muted-foreground mb-4">
+                    No pudimos acceder a tu historial en este momento. Por favor intenta más tarde.
+                </p>
+                <p className="text-xs text-muted-foreground bg-muted p-2 rounded">
+                    Error de desarrollo: Revisa que la DB esté corriendo y conectada.
+                </p>
+            </div>
+        );
+    }
 
     if (!user) {
         return (

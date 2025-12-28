@@ -14,7 +14,7 @@ export async function sendNewsletterWelcomeEmail(email: string) {
 
     try {
         const data = await resend.emails.send({
-            from: 'Club Morando <noreply@resend.dev>', // Use verified domain in prod
+            from: 'Club Morando <onboarding@resend.dev>', // Use verified domain in prod
             to: [email],
             subject: '¡Bienvenido al Club Morando!',
             react: NewsletterWelcomeEmail() as ReactElement,
