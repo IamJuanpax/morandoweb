@@ -92,8 +92,8 @@ export default function ContactPage() {
                             </div>
                             <div>
                                 <p className="font-medium">Nuestra Fábrica</p>
-                                <p className="text-muted-foreground">Ruta Nacional 7, Km 1000</p>
-                                <p className="text-muted-foreground">San Martín, Mendoza, Argentina</p>
+                                <p className="text-muted-foreground">Nahuel Huapi 1512</p>
+                                <p className="text-muted-foreground">Pontevedra, Buenos Aires</p>
                             </div>
                         </div>
 
@@ -103,7 +103,7 @@ export default function ContactPage() {
                             </div>
                             <div>
                                 <p className="font-medium">Teléfono</p>
-                                <p className="text-muted-foreground">+54 9 261 123-4567</p>
+                                <p className="text-muted-foreground">+54 9 11 1234-5678</p>
                                 <p className="text-xs text-muted-foreground mt-1">Lunes a Viernes de 9hs a 17hs</p>
                             </div>
                         </div>
@@ -120,10 +120,18 @@ export default function ContactPage() {
                     </div>
 
                     {/* Mapa Placeholder */}
-                    <div className="aspect-video w-full bg-muted rounded-xl overflow-hidden relative border">
-                        <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
-                            <span className="flex items-center gap-2"><MapPin /> Mapa de Google Maps</span>
-                        </div>
+                    {/* Mapa Google Maps */}
+                    <div className="aspect-video w-full bg-muted rounded-xl overflow-hidden relative border shadow-sm">
+                        <iframe
+                            src="https://maps.google.com/maps?q=Nahuel+Huapi+1512%2C+Pontevedra%2C+Buenos+Aires&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                            width="100%"
+                            height="100%"
+                            style={{ border: 0 }}
+                            allowFullScreen
+                            loading="lazy"
+                            referrerPolicy="no-referrer-when-downgrade"
+                            className="absolute inset-0"
+                        ></iframe>
                     </div>
                 </div>
             </div>

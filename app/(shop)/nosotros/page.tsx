@@ -24,7 +24,7 @@ export default function AboutPage() {
                 </div>
                 <div className="relative z-10 container text-center space-y-4">
                     <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-white mb-4 drop-shadow-lg">
-                        Tradición <span className="text-primary">Olirva</span>
+                        Tradición <span className="text-primary">Oliva</span>
                     </h1>
                     <p className="text-lg md:text-xl text-zinc-100 max-w-2xl mx-auto drop-shadow-md font-medium">
                         Más de 50 años llevando el sabor auténtico de la tierra a tu mesa.
