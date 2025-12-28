@@ -1,0 +1,95 @@
+﻿
+> out@0.1.0 lint
+> eslint
+
+
+C:\Users\juamp\OneDrive\Desktop\morandoweb\app\(admin)\admin\products\page.tsx
+  3:8   warning  'Image' is defined but never used                @typescript-eslint/no-unused-vars
+  4:23  warning  'toggleProductStatus' is defined but never used  @typescript-eslint/no-unused-vars
+  4:44  warning  'deleteProduct' is defined but never used        @typescript-eslint/no-unused-vars
+  6:16  warning  'Pencil' is defined but never used               @typescript-eslint/no-unused-vars
+  6:24  warning  'Trash2' is defined but never used               @typescript-eslint/no-unused-vars
+  6:32  warning  'Eye' is defined but never used                  @typescript-eslint/no-unused-vars
+  6:37  warning  'EyeOff' is defined but never used               @typescript-eslint/no-unused-vars
+
+C:\Users\juamp\OneDrive\Desktop\morandoweb\app\(admin)\layout.tsx
+  5:49  warning  'Settings' is defined but never used  @typescript-eslint/no-unused-vars
+  5:59  warning  'LogOut' is defined but never used    @typescript-eslint/no-unused-vars
+
+C:\Users\juamp\OneDrive\Desktop\morandoweb\app\(shop)\checkout\page.tsx
+  10:44  warning  'CreditCard' is defined but never used  @typescript-eslint/no-unused-vars
+  40:18  warning  'error' is defined but never used       @typescript-eslint/no-unused-vars
+
+C:\Users\juamp\OneDrive\Desktop\morandoweb\app\(shop)\checkout\success\page.tsx
+  13:11  warning  'router' is assigned a value but never used     @typescript-eslint/no-unused-vars
+  18:11  warning  'paymentId' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\juamp\OneDrive\Desktop\morandoweb\app\(shop)\contacto\page.tsx
+  10:8  warning  'Image' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\juamp\OneDrive\Desktop\morandoweb\app\(shop)\page.tsx
+  11:28  warning  'ShoppingBag' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\juamp\OneDrive\Desktop\morandoweb\app\(shop)\productos\[slug]\page.tsx
+  12:52  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  23:55  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\juamp\OneDrive\Desktop\morandoweb\app\actions\order.ts
+    6:10  warning  'revalidatePath' is defined but never used  @typescript-eslint/no-unused-vars
+  110:21  error    Unexpected any. Specify a different type    @typescript-eslint/no-explicit-any
+
+C:\Users\juamp\OneDrive\Desktop\morandoweb\app\actions\products.ts
+   38:14  warning  'error' is defined but never used         @typescript-eslint/no-unused-vars
+   59:14  warning  'error' is defined but never used         @typescript-eslint/no-unused-vars
+  108:21  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  147:21  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  162:14  warning  'error' is defined but never used         @typescript-eslint/no-unused-vars
+  174:14  warning  'error' is defined but never used         @typescript-eslint/no-unused-vars
+
+C:\Users\juamp\OneDrive\Desktop\morandoweb\components\admin\product-actions.tsx
+  10:10  warning  'useRouter' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\juamp\OneDrive\Desktop\morandoweb\components\admin\product-form.tsx
+  35:11  warning  'router' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\juamp\OneDrive\Desktop\morandoweb\components\cart\cart-sheet.tsx
+  11:5   warning  'SheetFooter' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+  21:27  warning  'removeItem' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  @typescript-eslint/no-unused-vars
+  21:39  warning  'updateQuantity' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              @typescript-eslint/no-unused-vars
+  26:9   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\juamp\OneDrive\Desktop\morandoweb\components\cart\cart-sheet.tsx:26:9
+  24 |     // Hydration fix for persist middleware
+  25 |     useEffect(() => {
+> 26 |         setMounted(true);
+     |         ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  27 |     }, []);
+  28 |
+  29 |     if (!mounted) return null;  react-hooks/set-state-in-effect
+
+C:\Users\juamp\OneDrive\Desktop\morandoweb\components\emails\newsletter-welcome.tsx
+  9:5  warning  'Img' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\juamp\OneDrive\Desktop\morandoweb\components\emails\order-receipt.tsx
+  11:5  warning  'Link' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\juamp\OneDrive\Desktop\morandoweb\components\home\newsletter-form.tsx
+  6:10  warning  'useState' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\juamp\OneDrive\Desktop\morandoweb\components\shop\navbar.tsx
+  5:16  warning  'ShoppingCart' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\juamp\OneDrive\Desktop\morandoweb\components\ui\input.tsx
+  5:18  error  An interface declaring no members is equivalent to its supertype  @typescript-eslint/no-empty-object-type
+
+C:\Users\juamp\OneDrive\Desktop\morandoweb\components\ui\textarea.tsx
+  5:18  error  An interface declaring no members is equivalent to its supertype  @typescript-eslint/no-empty-object-type
+
+Ô£û 37 problems (8 errors, 29 warnings)
+

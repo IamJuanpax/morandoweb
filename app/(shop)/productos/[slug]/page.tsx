@@ -1,14 +1,15 @@
 import { MOCK_PRODUCTS } from "@/lib/mock-data";
 import { AddToCart } from "@/components/product/add-to-cart";
 import { ShieldCheck, Truck } from "lucide-react";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 
 // Permitir parámetros dinámicos en versiones recientes de Next
-// type Props = {
-//   params: { slug: string };
-// };
+type Props = {
+    params: Promise<{ slug: string }>;
+};
 
-export async function generateMetadata({ params }: any) {
+export async function generateMetadata({ params }: Props) {
     const { slug } = await params
     const product = MOCK_PRODUCTS.find((p) => p.slug === slug);
     if (!product) return { title: "Producto no encontrado" };
@@ -19,7 +20,7 @@ export async function generateMetadata({ params }: any) {
     };
 }
 
-export default async function ProductPage({ params }: any) {
+export default async function ProductPage({ params }: Props) {
     const { slug } = await params
     const product = MOCK_PRODUCTS.find((p) => p.slug === slug);
 
@@ -33,17 +34,13 @@ export default async function ProductPage({ params }: any) {
 
                 {/* Gallery Column */}
                 <div className="relative aspect-square w-full overflow-hidden rounded-xl border bg-secondary/20 flex items-center justify-center">
-                    {/* Placeholder until real images */}
-                    <span className="text-9xl">🫒</span>
-                    {/* 
-                     <Image 
-                        src={product.image} 
-                        alt={product.name} 
-                        fill 
+                    <Image
+                        src={product.image}
+                        alt={product.name}
+                        fill
                         className="object-cover"
                         priority
-                     /> 
-                     */}
+                    />
                 </div>
 
                 {/* Info Column */}
