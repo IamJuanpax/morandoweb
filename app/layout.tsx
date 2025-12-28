@@ -19,6 +19,9 @@ export const metadata: Metadata = {
     default: "Aceitunas MORANDO | Calidad Premium",
   },
   description: "Ecommerce de aceitunas de alta gama. Venta directa de fábrica.",
+  icons: {
+    icon: "/aceituna.png",
+  },
 };
 
 export default function RootLayout({
