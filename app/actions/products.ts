@@ -84,7 +84,7 @@ export async function createProduct(formData: FormData) {
         });
 
         if (!validation.success) {
-            return { success: false, message: "Datos inválidos: " + validation.error.errors.map(e => e.message).join(", ") };
+            return { success: false, message: "Datos inválidos: " + validation.error.issues.map(e => e.message).join(", ") };
         }
 
         const { name, description, price, stock, categoryId, isAvailable } = validation.data;
